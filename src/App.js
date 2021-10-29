@@ -7,6 +7,8 @@ import { useState } from "react";
 function App() {
   const [theme, setTheme] = useState(true);
 
+  // edited by person_a
+
   const handleDarkTheme = () => {
     setTheme(true);
   };
