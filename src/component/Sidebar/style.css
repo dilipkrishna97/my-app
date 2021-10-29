@@ -1,0 +1,156 @@
+:root {
+    --dark-background: #222831;
+    --dark-sidebar: #393e46;
+    --dark-words: #ffd369;
+    --dark-button: #eeeeee;
+  
+    --light-background: #d9e4dd;
+    --light-sidebar: #fbf7f0;
+    --light-words: #cdc9c3;
+    --light-button: #555555;
+  }
+
+.left {
+    color: black;
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    position: relative;
+  }
+  .sidebar {
+    flex-basis: 20%;
+    height: 100%;
+    margin: none;
+    text-align: center;
+  }
+  
+  .dark-sidebar {
+    background-color: var(--dark-background);
+  }
+  
+  .light-sidebar {
+    background-color: var(--light-sidebar);
+  }
+
+  .list {
+    list-style-type: none;
+    padding: 5px 5px;
+    width: auto;
+  }
+  
+  .dark-list {
+    background-color: var(--dark-sidebar);
+  }
+  
+  .light-list {
+    background-color: var(--light-background);
+  }
+  
+  .dept-list {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .dark-dept-list {
+    color: var(--dark-words);
+  }
+  
+  .light-dept-list {
+    color: black;
+  }
+  
+  .dept-list:hover {
+    cursor: pointer;
+  }
+  
+  .dark-dept-list:hover {
+    background-color: var(--dark-button);
+    color: var(--dark-words);
+  }
+  
+  .light-dept-list:hover {
+    background-color: var(--light-words);
+    color: var(--light-sidebar);
+  }
+  
+  .dept-active {
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .dark-dept-active {
+    background-color: var(--dark-button);
+    color: var(--dark-words);
+  }
+  
+  .light-dept-active {
+    background-color: var(--light-sidebar);
+    color: var(--light-words);
+  }
+
+  .display {
+    padding-left: 50px;
+    height: 100%;
+    padding-top: 30px;
+    flex-basis: 80%;
+    display: flex;
+    background-image: url("D:\New folder\logo-1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50vw 50vh;
+    background-blend-mode: soft-light;
+    font-family: "Times New Roman", Times, serif;
+    opacity: 0.9;
+    cursor: pointer;
+    box-sizing: border-box;
+    flex-grow: 2;
+    overflow-y: auto;
+  }
+  
+  .dark-display {
+    background-color: var(--dark-background);
+    color: var(--dark-words);
+  }
+  
+  .light-display {
+    background-color: var(--light-sidebar);
+  }
+  
+  .display2 {
+    display: flex;
+    padding-top: 30px;
+    height: 100%;
+    flex-basis: 80%;
+    margin-bottom: 3px;
+    float: left;
+    padding: 80px 0 50px 60px;
+    background-image: url("D:\New folder\logo-1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-blend-mode: soft-light;
+    align-content: center;
+    font-family: "Times New Roman", Times, serif;
+    font-style: oblique;
+    font-size: 25px;
+    background-size: 50vw 50vh;
+    opacity: 0.8;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  .dark-display2 {
+    background-color: var(--dark-background);
+  }
+  
+  .light-display2 {
+    background-color: var(--light-sidebar);
+  }
+  
+  
+  

@@ -1,7 +1,7 @@
 import "./App.css";
 import Header from "./component/Header";
 import Sidebar from "./component/Sidebar";
-import themeContext from "./component/context";
+import themeContext from "./context/themeContext";
 import { useState } from "react";
 
 function App() {

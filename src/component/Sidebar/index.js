@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import "./style.css";
-import Display from "./Display";
-import Welcome from "./Welcome";
-import { departments } from "./const";
-import themeContext from "./context";
+import Display from "../Maindisplay";
+import Welcome from "../Welcomepage";
+import { departments } from "../../const";
+import themeContext from "../../context/themeContext";
 
 const Sidebar = () => {
   const [selectedDept, setDept] = useState(null);

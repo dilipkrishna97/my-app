@@ -1,0 +1,59 @@
+:root {
+  --dark-background: #222831;
+  --dark-sidebar: #393e46;
+  --dark-words: #ffd369;
+  --dark-button: #eeeeee;
+
+  --light-background: #d9e4dd;
+  --light-sidebar: #fbf7f0;
+  --light-words: #cdc9c3;
+  --light-button: #555555;
+}
+
+.popup-form {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.dark-popup-form {
+  background: var(--dark-sidebar);
+}
+
+.light-popup-form {
+  background: var(--light-sidebar);
+}
+
+.form {
+  position: relative;
+  width: 50%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh);
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+
+.dark-form {
+  background: var(--dark-sidebar);
+  color: var(--dark-words);
+}
+
+.light-form {
+  background: var(--light-button);
+  color: var(--light-sidebar);
+}
+
+.block {
+  margin: 10px;
+}
+
+.buttons {
+  float: right;
+  margin: 2px;
+}

@@ -1,5 +1,5 @@
 import "./style.css";
-import themeContext from "./context";
+import themeContext from "../../context/themeContext";
 import { useContext } from "react";
 
 const Header = () => {

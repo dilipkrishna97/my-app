@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import Details from "./Details";
-import Form from "./Form";
-import { deleteEmployee } from "../component/Redux/action";
+import React, { useState, useEffect } from "react";
+import Details from "../Detailsdisplay";
+import Form from "../Form";
+import { deleteEmployee } from "../../redux/action";
 import { useDispatch, useSelector } from "react-redux";
-import themeContext from "./context";
+
 
 const Display = (props) => {
   const [data, setData] = useState(null);
   const [popUp, setPopUp] = useState(false);
-  const theme = useContext(themeContext);
   const empList = useSelector((state) => state.empList);
   const dispatch = useDispatch();
   const { department } = props;

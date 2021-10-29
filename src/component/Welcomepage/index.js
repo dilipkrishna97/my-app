@@ -1,9 +1,6 @@
 import "./style.css";
-import themeContext from "./context";
-import { useContext } from "react";
 
 const Welcome = () => {
-  const theme = useContext(themeContext);
 
   return (
     <div>

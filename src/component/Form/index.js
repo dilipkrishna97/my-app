@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import "./style.css";
-import { addEmployees } from "../component/Redux/action";
+import { addEmployees } from "../../redux/action";
 import { useDispatch } from "react-redux";
-import themeContext from "./context";
+import themeContext from "../../context/themeContext";
 
 const Form = ({ popUp, setPopUp }) => {
   const [name, setName] = useState("");
