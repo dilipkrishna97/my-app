@@ -9,7 +9,7 @@ import {
   lowerCase,
   number,
   stringLength,
-} from "../../regx/expression";
+} from "../../helper/regx/expressions";
 import {
   Button,
   Grid,

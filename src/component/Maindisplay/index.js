@@ -4,7 +4,8 @@ import "./style.css";
 import Form from "../Form";
 import { deleteEmployee } from "../../redux/action";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import convertQueryStringToObject from "../../helper/functions/convertQueryStringToObject";
 
 const Maindisplay = (props) => {
   const [data, setData] = useState(null);
@@ -17,28 +18,34 @@ const Maindisplay = (props) => {
   const deptEmpList = empList.filter((list) => list.deptId === department.id);
   const location = useLocation();
   const history = useHistory();
+  const params = new URLSearchParams();
 
   const locationQueryParam = location.search;
 
+  const updateQueryString = () => {
+    const currentQueryString = location?.search;
+    const isCurQueryStringIsEmpty = !currentQueryString;
+    if (isCurQueryStringIsEmpty) return;
+    // substring(1) is performed to remove ? which at the beigining
+    const updatedQueryString = currentQueryString.substring(1);
+    const updateQueryStrObj = convertQueryStringToObject(updatedQueryString);
+
+    const selectedDeptId = updateQueryStrObj?.deptId || "";
+    const selectedColumnName = select;
+    const searchText = search;
+
+    params.append("deptId", selectedDeptId);
+    params.append("coloumn", selectedColumnName);
+    params.append("searchItem", searchText);
+
+    const newQueryString = params.toString();
+    history.push({ search: newQueryString });
+  };
+
   useEffect(() => {
-    const params = new URLSearchParams();
-    debugger
-    if(!location?.search) return;
-    var s = location.search.substring(1);
-    const msg = JSON.parse(
-      '{"' + s.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-      function (key, value) {
-        return key === "" ? value : decodeURIComponent(value);
-      }
-    );
-    console.log(msg)
-    if (select) {
-      params.append("deptId",msg?.deptId)
-      params.append("coloumn", select);
-      params.append("searchItem", search);
-    }
-    history.push({ search: params.toString() });
-  }, [select, search,locationQueryParam]);
+    updateQueryString();
+    // urlString(select, search, location, history, params)
+  }, [select, search, locationQueryParam]);
 
   useEffect(() => {
     setData(null);
@@ -76,7 +83,6 @@ const Maindisplay = (props) => {
 
   return (
     <div>
-      {/* {console.log(deptId)} */}
       <div>
         <b>Department Id: </b>
         {department.id} <br />
