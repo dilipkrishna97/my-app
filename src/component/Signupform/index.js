@@ -2,13 +2,13 @@ import "./style.css";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  emailId,
-  validPassword,
-  specialChar,
-  upperCase,
-  lowerCase,
-  number,
-  stringLength,
+  emailExpression,
+  passwordExpression,
+  specialCharacterExpression,
+  upperCaseExpression,
+  lowerCaseExpression,
+  numberExpression,
+  stringLengthExpression,
 } from "../../helper/regx/expressions";
 import {
   Button,
@@ -72,35 +72,35 @@ const Signupform = () => {
 
     const message = [];
 
-    if (!emailId.test(email)) {
+    if (!emailExpression.test(email)) {
       alert("Please enter valid email id");
     }
 
-    if (!stringLength.test(password)) {
+    if (!stringLengthExpression.test(password)) {
       message.push("Length of password is less than 8 characters");
     }
 
-    if (!specialChar.test(password)) {
+    if (!specialCharacterExpression.test(password)) {
       message.push("Special character is not included in password");
     }
 
-    if (!upperCase.test(password)) {
+    if (!upperCaseExpression.test(password)) {
       message.push("Uppercase character is not included in password");
     }
 
-    if (!lowerCase.test(password)) {
+    if (!lowerCaseExpression.test(password)) {
       message.push("Lower character is not included in password");
     }
 
-    if (!number.test(password)) {
+    if (!numberExpression.test(password)) {
       message.push("Number is not included in password");
     }
 
-    if (!validPassword.test(password)) {
+    if (!passwordExpression.test(password)) {
       alert(message.toString().replaceAll(",", "\n"));
     }
 
-    if (emailId.test(email) && validPassword.test(password)) {
+    if (emailExpression.test(email) && passwordExpression.test(password)) {
       if (!(email === "" || password === "" || name === "")) {
         dispatch(addUser(userDetails));
         alert("Registered succesfully");
