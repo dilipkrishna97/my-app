@@ -1,20 +1,40 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./style.css";
-import Display from "../Maindisplay";
-import Welcome from "../Welcomepage";
+import Maindisplay from "../Maindisplay";
 import { departments } from "../../const";
 import themeContext from "../../context/themeContext";
-
+import { useHistory } from "react-router-dom";
+import Welcomepage from "../Welcomepage";
 
 const Sidebar = () => {
   const [selectedDept, setDept] = useState(null);
   const theme = useContext(themeContext);
+  const history = useHistory();
 
   const onDeptClick = (dept) => {
     if (dept) {
       setDept(dept);
     }
   };
+
+  // useEffect(() => {
+  //   const params = new URLSearchParams();
+  //   params.append("msg", selectedDept.id)
+  //   history.push({search: params.toString()})
+  // }, [selectedDept, history]
+  // )
+
+
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (selectedDept) {
+      params.append("deptId", selectedDept.id)
+    } else {
+      params.delete("deptId")
+    }
+    history.push({search: params.toString()})
+  }, [selectedDept, history]
+  )
 
   return (
     <div className="left">
@@ -35,7 +55,7 @@ const Sidebar = () => {
                 }
                 onClick={() => onDeptClick(dept)}
               >
-                {dept.name} 
+                {dept.name}
               </li>
             );
           })}
@@ -45,7 +65,7 @@ const Sidebar = () => {
         <div
           className={theme ? "display dark-display" : "display light-display"}
         >
-          <Display department={selectedDept} />
+          <Maindisplay department={selectedDept} />
         </div>
       ) : (
         <div
@@ -53,7 +73,7 @@ const Sidebar = () => {
             theme ? "display2 dark-display2" : "display2 light-display2"
           }
         >
-          <Welcome />
+          <Welcomepage />
         </div>
       )}
     </div>

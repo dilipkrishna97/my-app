@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Details from "../Detailsdisplay";
-import "./style.css"
+import "./style.css";
 import Form from "../Form";
 import { deleteEmployee } from "../../redux/action";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 
-const Display = (props) => {
+const Maindisplay = (props) => {
   const [data, setData] = useState(null);
   const [popUp, setPopUp] = useState(false);
   const [select, setSelect] = useState("ID");
@@ -14,17 +15,41 @@ const Display = (props) => {
   const dispatch = useDispatch();
   const { department } = props;
   const deptEmpList = empList.filter((list) => list.deptId === department.id);
+  const location = useLocation();
+  const history = useHistory();
+
+  const locationQueryParam = location.search;
 
   useEffect(() => {
-    setData(null)
+    const params = new URLSearchParams();
+    debugger
+    if(!location?.search) return;
+    var s = location.search.substring(1);
+    const msg = JSON.parse(
+      '{"' + s.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+      function (key, value) {
+        return key === "" ? value : decodeURIComponent(value);
+      }
+    );
+    console.log(msg)
+    if (select) {
+      params.append("deptId",msg?.deptId)
+      params.append("coloumn", select);
+      params.append("searchItem", search);
+    }
+    history.push({ search: params.toString() });
+  }, [select, search,locationQueryParam]);
+
+  useEffect(() => {
+    setData(null);
   }, [department]);
 
   useEffect(() => {
-    setSelect("ID")
+    setSelect("ID");
   }, [department]);
 
   useEffect(() => {
-    setSearch("")
+    setSearch("");
   }, [department]);
 
   const managePopUp = () => {
@@ -36,15 +61,22 @@ const Display = (props) => {
   };
 
   const handleSelect = (e) => {
-    if(e.target.value === "ID"){setSelect("ID");}
-    else if(e.target.value === "Name"){setSelect("Name");}
-    else if(e.target.value === "Role"){setSelect("Role");}
-    else if(e.target.value === "Gender"){setSelect("Gender");}
-    else if(e.target.value === "DOB"){setSelect("DOB");}
+    if (e.target.value === "ID") {
+      setSelect("ID");
+    } else if (e.target.value === "Name") {
+      setSelect("Name");
+    } else if (e.target.value === "Role") {
+      setSelect("Role");
+    } else if (e.target.value === "Gender") {
+      setSelect("Gender");
+    } else if (e.target.value === "DOB") {
+      setSelect("DOB");
+    }
   };
 
   return (
     <div>
+      {/* {console.log(deptId)} */}
       <div>
         <b>Department Id: </b>
         {department.id} <br />
@@ -81,14 +113,25 @@ const Display = (props) => {
       </div>
       <div>
         <form>
-          <select className="dropDown" value={select} onChange={(e) => handleSelect(e)}>
+          <select
+            className="dropDown"
+            value={select}
+            onChange={(e) => handleSelect(e)}
+          >
             <option value="ID">ID</option>
             <option value="Name">Name</option>
             <option value="Role">Role</option>
             <option value="Gender">Gender</option>
             <option value="DOB">DOB</option>
           </select>
-          <input className="search" placeholder="Enter here" value={search} onChange={(e) => {setSearch(e.target.value)} } />
+          <input
+            className="search"
+            placeholder="Enter here"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
         </form>
       </div>
       <div>
@@ -105,39 +148,54 @@ const Display = (props) => {
               </tr>
             </thead>
             <tbody>
-              {deptEmpList.filter((emp) => {if(search === ""){
-                return emp;
-              }else if(select === "Name"){if(emp.name.toLowerCase().includes(search.toLowerCase()) ){
-                return emp;
-              }}
-              else if(select === "ID"){if(emp.empId.toLowerCase().includes(search.toLowerCase()) ){
-                return emp;
-              }}
-              else if(select === "Role"){if(emp.empRole.toLowerCase().includes(search.toLowerCase()) ){
-                return emp;
-              }}
-              else if(select === "Gender"){if(emp.gender.toLowerCase().includes(search.toLowerCase()) ){
-                return emp;
-              }}
-              else if(select === "DOB"){if(emp.dob.toLowerCase().includes(search.toLowerCase()) ){
-                return emp;
-              }}
-            }).map((emp) => {
-                return (
-                  <tr id="cell" onClick={() => setData(emp)}>
-                    <td> {emp.empId} </td>
-                    <td> {emp.name} </td>
-                    <td> {emp.empRole} </td>
-                    <td> {emp.gender} </td>
-                    <td> {emp.dob} </td>
-                    <td>
-                      <button onClick={() => handleDelete(emp.empId)}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {deptEmpList
+                .filter((emp) => {
+                  if (search === "") {
+                    return emp;
+                  } else if (select === "Name") {
+                    if (emp.name.toLowerCase().includes(search.toLowerCase())) {
+                      return emp;
+                    }
+                  } else if (select === "ID") {
+                    if (
+                      emp.empId.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return emp;
+                    }
+                  } else if (select === "Role") {
+                    if (
+                      emp.empRole.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return emp;
+                    }
+                  } else if (select === "Gender") {
+                    if (
+                      emp.gender.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return emp;
+                    }
+                  } else if (select === "DOB") {
+                    if (emp.dob.toLowerCase().includes(search.toLowerCase())) {
+                      return emp;
+                    }
+                  }
+                })
+                .map((emp) => {
+                  return (
+                    <tr id="cell" onClick={() => setData(emp)}>
+                      <td> {emp.empId} </td>
+                      <td> {emp.name} </td>
+                      <td> {emp.empRole} </td>
+                      <td> {emp.gender} </td>
+                      <td> {emp.dob} </td>
+                      <td>
+                        <button onClick={() => handleDelete(emp.empId)}>
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         )}
@@ -149,4 +207,4 @@ const Display = (props) => {
   );
 };
 
-export default Display;
+export default Maindisplay;

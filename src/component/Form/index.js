@@ -45,8 +45,6 @@ const Form = ({ popUp, setPopUp }) => {
     setEmpRole(e.target.value);
   };
 
-  console.log(typeof departId);
-
   const handleSave = () => {
     if (
       name === "" ||

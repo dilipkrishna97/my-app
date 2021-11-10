@@ -9,7 +9,7 @@ import {
   lowerCase,
   number,
   stringLength,
-} from "../../Regx/expression";
+} from "../../regx/expression";
 import {
   Button,
   Grid,
@@ -104,7 +104,7 @@ const Signupform = () => {
       if (!(email === "" || password === "" || name === "")) {
         dispatch(addUser(userDetails));
         alert("Registered succesfully");
-        history.push("/");
+        history.push({pathname:'/',search:''});
       }
     }
   };
