@@ -1,38 +1,23 @@
 import "./App.css";
-import Header from "./component/Header";
-import Sidebar from "./component/Sidebar";
-import themeContext from "./context/themeContext";
-import { useState } from "react";
+import store from "./redux/store";
+import { Provider } from "react-redux";
+import Login from "./component/Login";
+import Dashboard from "./component/Dashboard";
+import Signupform from "./component/Signupform";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-function App() {
-  const [theme, setTheme] = useState(true);
-
-  // edited by person_a
-
-  const handleDarkTheme = () => {
-    setTheme(true);
-  };
-
-  const handleLightTheme = () => {
-    setTheme(false);
-  };
-
-  console.log(theme);
-
+const App = () => {
   return (
-    <themeContext.Provider value={theme}>
-      <div className="App">
-        <div>
-          <button onClick={() => handleDarkTheme()}> Dark </button>
-          <button onClick={() => handleLightTheme()}> Light </button>
-          <Header />
-        </div>
-        <div id="appss">
-          <Sidebar />
-        </div>
-      </div>
-    </themeContext.Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/home" component={Dashboard} />
+          <Route exact path="/signUp" component={Signupform} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
-}
+};
 
 export default App;

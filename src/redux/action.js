@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEES, DELETE_EMPLOYEE } from "./actionType";
+import { ADD_EMPLOYEES, DELETE_EMPLOYEE, ADD_USER } from "./actionType";
 
 export const addEmployees = (allEmpData) => {
   return {
@@ -11,5 +11,12 @@ export const deleteEmployee = (empId) => {
   return {
     type: DELETE_EMPLOYEE,
     employeeId: empId,
+  };
+};
+
+export const addUser = (userDetails) => {
+  return {
+    type: ADD_USER,
+    payLoad: userDetails || {},
   };
 };

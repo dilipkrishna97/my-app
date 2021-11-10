@@ -5,6 +5,7 @@ import Welcome from "../Welcomepage";
 import { departments } from "../../const";
 import themeContext from "../../context/themeContext";
 
+
 const Sidebar = () => {
   const [selectedDept, setDept] = useState(null);
   const theme = useContext(themeContext);
@@ -32,9 +33,9 @@ const Sidebar = () => {
                     ? "dept-list light-dept-list dept-active light-dept-active"
                     : "dept-list light-dept-list"
                 }
-                onClick={(e) => onDeptClick(dept)}
+                onClick={() => onDeptClick(dept)}
               >
-                {dept.name}
+                {dept.name} 
               </li>
             );
           })}

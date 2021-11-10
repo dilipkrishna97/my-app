@@ -87,7 +87,12 @@ const Form = ({ popUp, setPopUp }) => {
     >
       <div className={theme ? "form dark-form" : "form light-form"}>
         <label className="block"> Employee Name:</label>
-        <input type="text" value={name} onChange={(e) => handleName(e)}></input>
+        <input
+          className="input"
+          type="text"
+          value={name}
+          onChange={(e) => handleName(e)}
+        ></input>
         <br />
         <br />
         <label className="block"> Employee DOB:</label>

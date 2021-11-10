@@ -1,7 +1,7 @@
 import Reducer from "./reducer";
 import { createStore } from "redux";
 
-function saveToLocalStorage(state) { 
+function saveToLocalStorage(state) {
   try {
     const serialisedState = JSON.stringify(state);
     localStorage.setItem("persistantState", serialisedState);
@@ -20,8 +20,6 @@ function loadFromLocalStorage() {
     return undefined;
   }
 }
-
-
 
 const store = createStore(Reducer, loadFromLocalStorage());
 

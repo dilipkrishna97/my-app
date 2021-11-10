@@ -1,6 +1,7 @@
-import { ADD_EMPLOYEES, DELETE_EMPLOYEE } from "./actionType";
+import { ADD_EMPLOYEES, DELETE_EMPLOYEE, ADD_USER } from "./actionType";
 
 const initialState = {
+  userDetails: [],
   empList: [],
 };
 
@@ -18,11 +19,18 @@ const reducer = (state = initialState, action) => {
       const updatedEmpList = state.empList.filter(
         (emp) => action.employeeId !== emp.empId
       );
-      console.log(action.employeeId);
 
       return {
         ...state,
         empList: updatedEmpList,
+      };
+    }
+
+    case ADD_USER: {
+      state.userDetails.push(action.payLoad);
+      return {
+        ...state,
+        userDetails: [...state.userDetails],
       };
     }
 
