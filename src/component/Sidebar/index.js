@@ -5,6 +5,7 @@ import { departments } from "../../const";
 import themeContext from "../../context/themeContext";
 import { useHistory, useLocation } from "react-router-dom";
 import Welcomepage from "../Welcomepage";
+import convertQueryStringToObject from "../../helper/functions/convertQueryStringToObject";
 
 const Sidebar = () => {
   const [selectedDept, setDept] = useState(null);
@@ -12,17 +13,46 @@ const Sidebar = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const updateDeptInQueryString =(deptId)=>{
+  const updateDepatmentFromQueryString = () => {
+    const currentQueryString = location?.search;
+
+    if (!currentQueryString) return;
+        // substring(1) is performed to remove ? which at the beigining
+    const updatedQueryString = currentQueryString.substring(1);
+    const updateQueryStrObj = convertQueryStringToObject(updatedQueryString);
+
+    const departmentId = updateQueryStrObj?.deptId || "";
+
+    const selectedDepartmentObject = departments.find(
+      (dep) => dep.id == departmentId
+    );
+
+    if (!selectedDepartmentObject) return;
+    
+    setDept(selectedDepartmentObject);
+    
+  };
+
+  useEffect(() => {
+    // executing here is simillar as executing in componentDidMount of a class component.
+    updateDepatmentFromQueryString();
+  }, []);
+
+  const updateDeptInQueryString = (deptId) => {
     const params = new URLSearchParams();
-    params.append("deptId", deptId)
-    history.push({search: params.toString()})
-  }
+    params.append("deptId", deptId);
+    history.push({ search: params.toString() });
+  };
 
   const onDeptClick = (dept) => {
     if (dept) {
       setDept(dept);
-      updateDeptInQueryString(dept.id)
+      updateDeptInQueryString(dept.id);
     }
+
+    // if(presentSelectedDeptId){
+    //   setDept(presentSelectedDeptId);
+    // }
   };
 
   return (

@@ -32,9 +32,9 @@ const Maindisplay = (props) => {
     if (isCurQueryStringIsEmpty) return;
     // substring(1) is performed to remove ? which at the beigining
     const updatedQueryString = currentQueryString.substring(1);
-    const updateQueryStrObj = convertQueryStringToObject(updatedQueryString);
+    const departmentId = convertQueryStringToObject(updatedQueryString);
 
-    const selectedDeptId = updateQueryStrObj?.deptId || "";
+    const selectedDeptId = departmentId?.deptId || "";
     
     params.append("deptId", selectedDeptId);
     params.append("coloumn", selectedColumnName);
