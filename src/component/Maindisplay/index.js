@@ -21,21 +21,20 @@ const Maindisplay = (props) => {
   const params = new URLSearchParams();
 
   const locationQueryParam = location.search;
+  const currentQueryString = location?.search;
+  const isCurQueryStringIsEmpty = !currentQueryString;
 
   const updateQueryString = (properties) => {
-  
-    const selectedColumnName = properties?.selectedColumnName||select;
-    const searchText = properties?.searchText||search;
+    const selectedColumnName = properties?.selectedColumnName || select;
+    const searchText = properties?.searchText || search;
 
-    const currentQueryString = location?.search;
-    const isCurQueryStringIsEmpty = !currentQueryString;
     if (isCurQueryStringIsEmpty) return;
     // substring(1) is performed to remove ? which at the beigining
     const updatedQueryString = currentQueryString.substring(1);
-    const departmentId = convertQueryStringToObject(updatedQueryString);
+    const queryStringObj = convertQueryStringToObject(updatedQueryString);
 
-    const selectedDeptId = departmentId?.deptId || "";
-    
+    const selectedDeptId = queryStringObj?.deptId || "";
+
     params.append("deptId", selectedDeptId);
     params.append("coloumn", selectedColumnName);
     params.append("searchItem", searchText);
@@ -44,20 +43,29 @@ const Maindisplay = (props) => {
     history.push({ search: newQueryString });
   };
 
+  const updateFilterUsingQueryString = () => {
+    if (isCurQueryStringIsEmpty) return;
+    // substring(1) is performed to remove ? which at the beigining
+    const updatedQueryString = currentQueryString.substring(1);
+    const queryStringObj = convertQueryStringToObject(updatedQueryString);
+
+    const filterSelectedColumn = queryStringObj?.coloumn || "";
+    const filterEnteredTxt = queryStringObj?.searchItem || "";
+
+    setSelect(filterSelectedColumn);
+    setSearch(filterEnteredTxt);
+  };
+
+  useEffect(() => {
+    updateFilterUsingQueryString();
+  }, []);
+
   useEffect(() => {
     updateQueryString();
   }, [locationQueryParam]);
 
   useEffect(() => {
     setData(null);
-  }, [department]);
-
-  useEffect(() => {
-    setSelect("ID");
-  }, [department]);
-
-  useEffect(() => {
-    setSearch("");
   }, [department]);
 
   const managePopUp = () => {
@@ -69,7 +77,6 @@ const Maindisplay = (props) => {
   };
 
   const handleSelect = (e) => {
-
     const columnName = e.target.value;
 
     if (columnName === "ID") {
@@ -84,8 +91,7 @@ const Maindisplay = (props) => {
       setSelect("DOB");
     }
 
-    updateQueryString({selectedColumnName:columnName});
-
+    updateQueryString({ selectedColumnName: columnName });
   };
 
   return (
@@ -142,9 +148,9 @@ const Maindisplay = (props) => {
             placeholder="Enter here"
             value={search}
             onChange={(e) => {
-              const value = e.target.value
+              const value = e.target.value;
               setSearch(value);
-              updateQueryString({searchText:value});
+              updateQueryString({ searchText: value });
             }}
           />
         </form>

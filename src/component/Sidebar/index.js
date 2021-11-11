@@ -8,13 +8,14 @@ import Welcomepage from "../Welcomepage";
 import convertQueryStringToObject from "../../helper/functions/convertQueryStringToObject";
 
 const Sidebar = () => {
-  const [selectedDept, setDept] = useState(null);
+  const [selectedDept, setSelectedDept] = useState(null);
   const theme = useContext(themeContext);
   const history = useHistory();
   const location = useLocation();
 
-  const updateDepatmentFromQueryString = () => {
+  const updateDepatmentUsingQueryString = () => {
     const currentQueryString = location?.search;
+    
 
     if (!currentQueryString) return;
         // substring(1) is performed to remove ? which at the beigining
@@ -24,18 +25,18 @@ const Sidebar = () => {
     const departmentId = updateQueryStrObj?.deptId || "";
 
     const selectedDepartmentObject = departments.find(
-      (dep) => dep.id == departmentId
+      (dep) => dep.id === departmentId
     );
 
     if (!selectedDepartmentObject) return;
     
-    setDept(selectedDepartmentObject);
+    setSelectedDept(selectedDepartmentObject);
     
   };
 
   useEffect(() => {
     // executing here is simillar as executing in componentDidMount of a class component.
-    updateDepatmentFromQueryString();
+    updateDepatmentUsingQueryString();
   }, []);
 
   const updateDeptInQueryString = (deptId) => {
@@ -46,7 +47,7 @@ const Sidebar = () => {
 
   const onDeptClick = (dept) => {
     if (dept) {
-      setDept(dept);
+      setSelectedDept(dept);
       updateDeptInQueryString(dept.id);
     }
 

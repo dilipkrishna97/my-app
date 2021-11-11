@@ -12,7 +12,7 @@ const convertQueryStringToObject = (queryString) => {
       refer: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
       If the reviver only transforms some values and not others, be certain to return all untransformed values as-is, otherwise, they will be deleted from the resulting object.
       */
-      return key === "" ? value : decodeURIComponent(value);;
+      return key === "" ? value : decodeURIComponent(value);
     }
   );
   return queryStringObject;
