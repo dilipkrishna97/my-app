@@ -22,7 +22,11 @@ const Maindisplay = (props) => {
 
   const locationQueryParam = location.search;
 
-  const updateQueryString = () => {
+  const updateQueryString = (properties) => {
+  
+    const selectedColumnName = properties?.selectedColumnName||select;
+    const searchText = properties?.searchText||search;
+
     const currentQueryString = location?.search;
     const isCurQueryStringIsEmpty = !currentQueryString;
     if (isCurQueryStringIsEmpty) return;
@@ -31,9 +35,7 @@ const Maindisplay = (props) => {
     const updateQueryStrObj = convertQueryStringToObject(updatedQueryString);
 
     const selectedDeptId = updateQueryStrObj?.deptId || "";
-    const selectedColumnName = select;
-    const searchText = search;
-
+    
     params.append("deptId", selectedDeptId);
     params.append("coloumn", selectedColumnName);
     params.append("searchItem", searchText);
@@ -44,8 +46,7 @@ const Maindisplay = (props) => {
 
   useEffect(() => {
     updateQueryString();
-    // urlString(select, search, location, history, params)
-  }, [select, search, locationQueryParam]);
+  }, [locationQueryParam]);
 
   useEffect(() => {
     setData(null);
@@ -68,17 +69,23 @@ const Maindisplay = (props) => {
   };
 
   const handleSelect = (e) => {
-    if (e.target.value === "ID") {
+
+    const columnName = e.target.value;
+
+    if (columnName === "ID") {
       setSelect("ID");
-    } else if (e.target.value === "Name") {
+    } else if (columnName === "Name") {
       setSelect("Name");
-    } else if (e.target.value === "Role") {
+    } else if (columnName === "Role") {
       setSelect("Role");
-    } else if (e.target.value === "Gender") {
+    } else if (columnName === "Gender") {
       setSelect("Gender");
-    } else if (e.target.value === "DOB") {
+    } else if (columnName === "DOB") {
       setSelect("DOB");
     }
+
+    updateQueryString({selectedColumnName:columnName});
+
   };
 
   return (
@@ -135,7 +142,9 @@ const Maindisplay = (props) => {
             placeholder="Enter here"
             value={search}
             onChange={(e) => {
-              setSearch(e.target.value);
+              const value = e.target.value
+              setSearch(value);
+              updateQueryString({searchText:value});
             }}
           />
         </form>

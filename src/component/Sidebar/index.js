@@ -3,38 +3,27 @@ import "./style.css";
 import Maindisplay from "../Maindisplay";
 import { departments } from "../../const";
 import themeContext from "../../context/themeContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Welcomepage from "../Welcomepage";
 
 const Sidebar = () => {
   const [selectedDept, setDept] = useState(null);
   const theme = useContext(themeContext);
   const history = useHistory();
+  const location = useLocation();
+
+  const updateDeptInQueryString =(deptId)=>{
+    const params = new URLSearchParams();
+    params.append("deptId", deptId)
+    history.push({search: params.toString()})
+  }
 
   const onDeptClick = (dept) => {
     if (dept) {
       setDept(dept);
+      updateDeptInQueryString(dept.id)
     }
   };
-
-  // useEffect(() => {
-  //   const params = new URLSearchParams();
-  //   params.append("msg", selectedDept.id)
-  //   history.push({search: params.toString()})
-  // }, [selectedDept, history]
-  // )
-
-
-  useEffect(() => {
-    const params = new URLSearchParams()
-    if (selectedDept) {
-      params.append("deptId", selectedDept.id)
-    } else {
-      params.delete("deptId")
-    }
-    history.push({search: params.toString()})
-  }, [selectedDept, history]
-  )
 
   return (
     <div className="left">

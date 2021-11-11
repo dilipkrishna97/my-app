@@ -11,9 +11,12 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/home" component={Dashboard} />
-          <Route exact path="/signUp" component={Signupform} />
+          <Route exact path="/" children ={() => < Login/>} />
+          <Route exact path="/home" children ={() => < Dashboard/>} />
+          <Route exact path="/signUp" children ={() => < Signupform/>} />
+          <Route path="*">
+           <h1>404 page not found</h1>
+          </Route>
         </Switch>
       </BrowserRouter>
     </Provider>
