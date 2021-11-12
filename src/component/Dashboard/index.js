@@ -18,11 +18,10 @@ const Dashboard = () => {
   return (
     <themeContext.Provider value={theme}>
       <div className="App">
-        <div>
-          <button onClick={() => handleDarkTheme()}> Dark </button>
-          <button onClick={() => handleLightTheme()}> Light </button>
-          <Header />
-        </div>
+        <button onClick={() => handleDarkTheme()}> Dark </button>
+        <button onClick={() => handleLightTheme()}> Light </button>
+        <Header />
+
         <div id="appss">
           <Sidebar />
         </div>

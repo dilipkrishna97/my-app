@@ -1,5 +1,6 @@
 import "./style.css";
 import { useSelector } from "react-redux";
+import LabelValue from "../LabelValue";
 
 const Details = (props) => {
   const { selectedDeptId, selectedEmpId } = props;
@@ -40,13 +41,14 @@ const Details = (props) => {
   };
 
   return selectedEmployee.map((emp) => {
+    const employeeDob = ageCalculate(emp.dob);
     return (
       <div>
-        <p> Name: {emp.name} </p>
-        <p> Role: {emp.empRole} </p>
-        <p> Employee Id: {emp.empId}</p>
-        <p> Gender:{emp.gender}</p>
-        <p> Age:{ageCalculate(emp.dob)}</p>
+        <LabelValue label={"Name: "} value={emp.name}/>
+        <LabelValue label={"Role: "} value={emp.empRole}/>
+        <LabelValue label={"Employee Id: "} value={emp.empId}/>
+        <LabelValue label={"Gender: "} value={emp.gender}/>
+        <LabelValue label={"Age: "} value={employeeDob}/>
       </div>
     );
   });

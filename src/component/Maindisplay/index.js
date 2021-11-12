@@ -6,6 +6,9 @@ import { deleteEmployee } from "../../redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import convertQueryStringToObject from "../../helper/functions/convertQueryStringToObject";
+import LabelValue from "../LabelValue";
+import Dropdown from "../Dropdown";
+import { dropDownOptionList } from "../../const";
 
 const Maindisplay = (props) => {
   const [data, setData] = useState(null);
@@ -18,22 +21,23 @@ const Maindisplay = (props) => {
   const deptEmpList = empList.filter((list) => list.deptId === department.id);
   const location = useLocation();
   const history = useHistory();
-  const params = new URLSearchParams();
 
   const locationQueryParam = location.search;
-  const currentQueryString = location?.search;
-  const isCurQueryStringIsEmpty = !currentQueryString;
 
   const updateQueryString = (properties) => {
-    const selectedColumnName = properties?.selectedColumnName || select;
-    const searchText = properties?.searchText || search;
+    const currentQueryString = locationQueryParam;
 
-    if (isCurQueryStringIsEmpty) return;
+    const selectedColumnName = properties?.selectedColumnName || select;
+    const searchText = properties?.searchText?? search;
+
+    if (!currentQueryString) return;
     // substring(1) is performed to remove ? which at the beigining
     const updatedQueryString = currentQueryString.substring(1);
     const queryStringObj = convertQueryStringToObject(updatedQueryString);
 
     const selectedDeptId = queryStringObj?.deptId || "";
+
+    const params = new URLSearchParams();
 
     params.append("deptId", selectedDeptId);
     params.append("coloumn", selectedColumnName);
@@ -44,7 +48,9 @@ const Maindisplay = (props) => {
   };
 
   const updateFilterUsingQueryString = () => {
-    if (isCurQueryStringIsEmpty) return;
+    const currentQueryString = locationQueryParam;
+
+    if (!currentQueryString) return;
     // substring(1) is performed to remove ? which at the beigining
     const updatedQueryString = currentQueryString.substring(1);
     const queryStringObj = convertQueryStringToObject(updatedQueryString);
@@ -68,7 +74,7 @@ const Maindisplay = (props) => {
     setData(null);
   }, [department]);
 
-  const managePopUp = () => {
+  const openFormPopup = () => {
     setPopUp(true);
   };
 
@@ -76,8 +82,8 @@ const Maindisplay = (props) => {
     dispatch(deleteEmployee(empId));
   };
 
-  const handleSelect = (e) => {
-    const columnName = e.target.value;
+  const handleSelect = (onSelectChnages) => {
+    const columnName = onSelectChnages.target.value;
 
     if (columnName === "ID") {
       setSelect("ID");
@@ -94,34 +100,16 @@ const Maindisplay = (props) => {
     updateQueryString({ selectedColumnName: columnName });
   };
 
+  const emplyeeNo = Object.keys(deptEmpList).length;
+
   return (
     <div>
-      <div>
-        <b>Department Id: </b>
-        {department.id} <br />
-        <br />
-      </div>
-      <div>
-        <b>Department Name: </b>
-        {department.name}
-        <br />
-        <br />
-      </div>
-      <div>
-        <b>Department Manager: </b>
-        {department.manager}
-        <br />
-        <br />
-      </div>
-      <div>
-        <b>Number of Employees: </b>
-        {Object.keys(deptEmpList).length}
-        <br />
-        <br />
-      </div>
+      <LabelValue label={"Department Id: "} value={department.id} />
+      <LabelValue label={"Department Manager: "} value={department.manager} />
+      <LabelValue label={"Number of Employees: "} value={emplyeeNo} />
       <div>
         <b>List of Employees: </b>
-        <button onClick={() => managePopUp()}> Add Employees </button>
+        <button onClick={() => openFormPopup()}> Add Employees </button>
         <br />
         <br />
       </div>
@@ -132,22 +120,17 @@ const Maindisplay = (props) => {
       </div>
       <div>
         <form>
-          <select
-            className="dropDown"
+          <Dropdown
             value={select}
-            onChange={(e) => handleSelect(e)}
-          >
-            <option value="ID">ID</option>
-            <option value="Name">Name</option>
-            <option value="Role">Role</option>
-            <option value="Gender">Gender</option>
-            <option value="DOB">DOB</option>
-          </select>
+            onSelectChanges={handleSelect}
+            list={dropDownOptionList}
+          />
           <input
             className="search"
             placeholder="Enter here"
             value={search}
             onChange={(e) => {
+              debugger
               const value = e.target.value;
               setSearch(value);
               updateQueryString({ searchText: value });

@@ -42,3 +42,21 @@ export const departments = [
     noOfEmployees: "4",
   },
 ];
+
+export const dropDownOptionList = [
+  {
+    option : "ID",
+  },
+  {
+    option : "Name",
+  },
+  {
+    option : "Role",
+  },
+  {
+    option : "Gender",
+  },
+  {
+    option : "DOB",
+  }
+];
