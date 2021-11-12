@@ -67,7 +67,8 @@ const Maindisplay = (props) => {
   }, []);
 
   useEffect(() => {
-    updateQueryString();
+    // triggered when department is changing
+    updateFilterUsingQueryString();
   }, [locationQueryParam]);
 
   useEffect(() => {
@@ -97,7 +98,7 @@ const Maindisplay = (props) => {
       setSelect("DOB");
     }
 
-    updateQueryString({ selectedColumnName: columnName });
+    updateQueryString({ selectedColumnName: columnName,searchText:"" });
   };
 
   const emplyeeNo = Object.keys(deptEmpList).length;
