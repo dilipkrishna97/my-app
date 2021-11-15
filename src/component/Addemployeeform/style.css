@@ -7,11 +7,11 @@
 }
 
 .dark-popup-form {
-  background: var(--dark-sidebar);
+  background-color: var(--dark-sidebar);
 }
 
 .light-popup-form {
-  background: var(--light-sidebar);
+  background-color: var(--light-sidebar);
 }
 
 .form {
@@ -28,13 +28,13 @@
 }
 
 .dark-form {
-  background: var(--dark-sidebar);
+  background-color: var(--dark-sidebar);
   color: var(--dark-words);
 }
 
 .light-form {
-  background: var(--light-button);
-  color: var(--light-sidebar);
+  background-color: var(--light-sidebar);
+  color: var(--light-button);
 }
 
 .block {
@@ -49,3 +49,13 @@
 .input {
   display: inline-block;
 }
+
+.box{
+  width: 400px;
+  height: 100%;
+  background-color: whitesmoke;
+  padding: 6px;
+  border: solid black;
+  box-shadow: black;
+}
+

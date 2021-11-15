@@ -9,5 +9,13 @@
     width: 30%;
     height: 20px;
     margin-left: 5px;
+}
 
+.addEmployeeformContainer{
+    display: grid;
+    margin-left: 40%;
+    margin-top: 5%;
+    width: 30%;
+    height: 70%;
+    box-shadow: black;
 }

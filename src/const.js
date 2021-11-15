@@ -24,7 +24,7 @@ export const departments = [
     noOfEmployees: "4",
   },
   {
-    name: "Technical Department",
+    name: "FMCG Department",
     id: "555",
     manager: "Peter",
     noOfEmployees: "4",
