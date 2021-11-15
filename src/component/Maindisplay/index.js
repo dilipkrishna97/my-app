@@ -202,7 +202,7 @@ const Maindisplay = (props) => {
                         <td> {emp.dob} </td>
                         <td>
                           <button
-                            onClick={() => handleDelete(emp.empId, emp.deptId)}
+                            onClick={() => handleDelete(emp.empId)}
                           >
                             Delete
                           </button>
@@ -221,9 +221,9 @@ const Maindisplay = (props) => {
       <Modal open={openAddEmpFormModal} onClose={handleCloseAddEmpModal}>
         <div className="addEmployeeformContainer">
           <Addemployeeform
-            popUp={openAddEmpFormModal}
-            setPopUp={setOpenAddEmpFormModal}
-            departId={department.id}
+            openAddEmpFormModal={openAddEmpFormModal}
+            setOpenAddEmpFormModal={setOpenAddEmpFormModal}
+            depart={department}
           />
         </div>
       </Modal>

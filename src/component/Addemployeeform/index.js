@@ -3,22 +3,34 @@ import "./style.css";
 import { addEmployees } from "../../redux/action";
 import { useDispatch } from "react-redux";
 import themeContext from "../../context/themeContext";
-import { Button, Box, Modal, TextField } from "@mui/material";
+import { Button, Box, TextField } from "@mui/material";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-const Addemployeeform = ({ popUp, setPopUp }) => {
+const Addemployeeform = ({
+  openAddEmpFormModal,
+  setOpenAddEmpFormModal,
+  depart,
+}) => {
   const [name, setName] = useState("");
   const [dob, setDob] = useState(new Date().toLocaleDateString());
-  const [empId, setEmpId] = useState("");
-  const [deptId, setDeptId] = useState("");
-  const [deptName, setDeptName] = useState("");
   const [gender, setGender] = useState("");
   const [empRole, setEmpRole] = useState("");
 
   const theme = useContext(themeContext);
 
   const dispatch = useDispatch();
+
+  const generateUniqueId = require("generate-unique-id");
+
+  const empId = generateUniqueId({
+    length: 5,
+    useLetters: false,
+  });
+
+  const deptId = depart.id;
+
+  const deptName = depart.name;
 
   const inputStyle = {
     margin: "auto auto 30px auto",
@@ -33,18 +45,6 @@ const Addemployeeform = ({ popUp, setPopUp }) => {
     setDob(date);
   };
 
-  const handleEmpId = (e) => {
-    setEmpId(e.target.value);
-  };
-
-  const handleDeptId = (e) => {
-    setDeptId(e.target.value);
-  };
-
-  const handleDeptName = (e) => {
-    setDeptName(e.target.value);
-  };
-
   const handleGender = (e) => {
     setGender(e.target.value);
   };
@@ -57,7 +57,6 @@ const Addemployeeform = ({ popUp, setPopUp }) => {
     if (
       name === "" ||
       dob === "" ||
-      empId === "" ||
       deptName === "" ||
       deptId === "" ||
       gender === "" ||
@@ -78,7 +77,7 @@ const Addemployeeform = ({ popUp, setPopUp }) => {
 
     dispatch(addEmployees(empData));
 
-    setPopUp(!popUp);
+    setOpenAddEmpFormModal(!openAddEmpFormModal);
   };
 
   const buttonStyle = {
@@ -118,7 +117,6 @@ const Addemployeeform = ({ popUp, setPopUp }) => {
           label="Employee Id"
           variant="standard"
           placeholder="Enter employee id"
-          onChange={(e) => handleEmpId(e)}
           value={empId}
           fullWidth
         />
@@ -129,7 +127,6 @@ const Addemployeeform = ({ popUp, setPopUp }) => {
           label="Department Id"
           variant="standard"
           placeholder="Enter department id "
-          onChange={(e) => handleDeptId(e)}
           value={deptId}
           fullWidth
         />
@@ -140,7 +137,6 @@ const Addemployeeform = ({ popUp, setPopUp }) => {
           label="Department Name"
           variant="standard"
           placeholder="Enter department name"
-          onChange={(e) => handleDeptName(e)}
           value={deptName}
           fullWidth
         />
