@@ -14,7 +14,9 @@ function loadFromLocalStorage() {
   try {
     const serialisedState = localStorage.getItem("persistantState");
     if (serialisedState === null) return undefined;
-    return JSON.parse(serialisedState);
+    const parsedState = JSON.parse(serialisedState);
+    if (parsedState?.selectedDept) parsedState.selectedDept = undefined;
+    return parsedState;
   } catch (e) {
     console.warn(e);
     return undefined;

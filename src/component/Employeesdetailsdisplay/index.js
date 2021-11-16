@@ -2,7 +2,7 @@ import "./style.css";
 import { useSelector } from "react-redux";
 import LabelValue from "../LabelValue";
 
-const Details = (props) => {
+const Employeesdetailsdisplay = (props) => {
   const { selectedDeptId, selectedEmpId } = props;
 
   const empList = useSelector((state) => state.empList);
@@ -54,4 +54,4 @@ const Details = (props) => {
   });
 };
 
-export default Details;
+export default Employeesdetailsdisplay;

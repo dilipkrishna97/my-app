@@ -1,0 +1,28 @@
+.display {
+    padding-left: 50px;
+    height: 100%;
+    padding-top: 30px;
+    flex-basis: 80%;
+    display: flex;
+    background-image: url("D:\New folder\logo-1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50vw 50vh;
+    background-blend-mode: soft-light;
+    font-family: "Times New Roman", Times, serif;
+    opacity: 0.9;
+    cursor: pointer;
+    box-sizing: border-box;
+    flex-grow: 2;
+    overflow-y: auto;
+  }
+  
+  .dark-display {
+    background-color: var(--dark-background);
+    color: var(--dark-words);
+  }
+  
+  .light-display {
+    background-color: var(--light-sidebar);
+  }
+  

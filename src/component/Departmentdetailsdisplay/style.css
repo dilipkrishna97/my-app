@@ -1,0 +1,78 @@
+.dropDown {
+  width: 10%;
+  height: 25px;
+  margin-left: 170px;
+}
+
+.search {
+  width: 30%;
+  height: 20px;
+  margin-left: 5px;
+}
+
+.addEmployeeformContainer {
+  display: grid;
+  margin-left: 40%;
+  margin-top: 5%;
+  width: 30%;
+  height: 70%;
+  box-shadow: black;
+}
+
+#table {
+  width: 70%;
+  margin: 50px auto;
+  border-collapse: collapse;
+}
+
+table,
+tr,
+td,
+#cell {
+  border: 2px solid black;
+  align-content: center;
+  text-align: center;
+}
+
+#cell {
+  align-content: center;
+  text-align: center;
+  width: 200px;
+}
+
+#head {
+  width: 200px;
+  border: 2px solid black;
+}
+
+.display2 {
+  display: flex;
+  padding-top: 30px;
+  height: 100%;
+  width:70%;
+  flex-basis: 80%;
+  margin-bottom: 3px;
+  float: left;
+  padding: 80px 0 50px 60px;
+  background-image: url("D:\New folder\logo-1.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: soft-light;
+  align-content: center;
+  font-family: "Times New Roman", Times, serif;
+  font-style: oblique;
+  font-size: 25px;
+  background-size: 50vw 50vh;
+  opacity: 0.8;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.dark-display2 {
+  background-color: var(--dark-background);
+}
+
+.light-display2 {
+  background-color: var(--light-sidebar);
+}
+

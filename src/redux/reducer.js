@@ -1,8 +1,14 @@
-import { ADD_EMPLOYEES, DELETE_EMPLOYEE, ADD_USER } from "./actionType";
+import {
+  ADD_EMPLOYEES,
+  DELETE_EMPLOYEE,
+  ADD_USER,
+  DEPT_CLICKED,
+} from "./actionType";
 
 const initialState = {
   userDetails: [],
   empList: [],
+  selectedDept: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +37,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userDetails: [...state.userDetails],
+      };
+    }
+
+    case DEPT_CLICKED: {
+      // state.selectedDept.push(action.payLoad);
+      return {
+        ...state,
+        selectedDept: {...action.payLoad},
       };
     }
 

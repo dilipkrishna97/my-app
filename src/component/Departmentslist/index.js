@@ -1,24 +1,24 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./style.css";
-import Maindisplay from "../Maindisplay";
 import { departments } from "../../const";
 import themeContext from "../../context/themeContext";
 import { useHistory, useLocation } from "react-router-dom";
-import Welcomepage from "../Welcomepage";
 import convertQueryStringToObject from "../../helper/functions/convertQueryStringToObject";
+import { departClicked } from "../../redux/action";
+import { useDispatch } from "react-redux";
 
-const Sidebar = () => {
+const Departmentlist = () => {
   const [selectedDept, setSelectedDept] = useState(null);
   const theme = useContext(themeContext);
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const updateDepatmentUsingQueryString = () => {
     const currentQueryString = location?.search;
-    
 
     if (!currentQueryString) return;
-        // substring(1) is performed to remove ? which at the beigining
+    // substring(1) is performed to remove ? which at the beigining
     const updatedQueryString = currentQueryString.substring(1);
     const updateQueryStrObj = convertQueryStringToObject(updatedQueryString);
 
@@ -29,9 +29,8 @@ const Sidebar = () => {
     );
 
     if (!selectedDepartmentObject) return;
-    
+
     setSelectedDept(selectedDepartmentObject);
-    
   };
 
   useEffect(() => {
@@ -46,14 +45,9 @@ const Sidebar = () => {
   };
 
   const onDeptClick = (dept) => {
-    if (dept) {
-      setSelectedDept(dept);
-      updateDeptInQueryString(dept.id);
-    }
-
-    // if(presentSelectedDeptId){
-    //   setDept(presentSelectedDeptId);
-    // }
+    setSelectedDept(dept);
+    updateDeptInQueryString(dept.id);
+    dispatch(departClicked(dept));
   };
 
   return (
@@ -81,23 +75,8 @@ const Sidebar = () => {
           })}
         </ul>
       </div>
-      {selectedDept ? (
-        <div
-          className={theme ? "display dark-display" : "display light-display"}
-        >
-          <Maindisplay department={selectedDept} />
-        </div>
-      ) : (
-        <div
-          className={
-            theme ? "display2 dark-display2" : "display2 light-display2"
-          }
-        >
-          <Welcomepage />
-        </div>
-      )}
     </div>
   );
 };
 
-export default Sidebar;
+export default Departmentlist;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Details from "../Detailsdisplay";
+import Employeesdetailsdisplay from "../Employeesdetailsdisplay";
 import "./style.css";
 import Addemployeeform from "../Addemployeeform";
 import { deleteEmployee } from "../../redux/action";
@@ -11,15 +11,15 @@ import Dropdown from "../Dropdown";
 import { dropDownOptionList } from "../../const";
 import { Button, Modal } from "@mui/material";
 
-const Maindisplay = (props) => {
+const Departmentdetailsdisplay = () => {
   const [data, setData] = useState(null);
   const [openAddEmpFormModal, setOpenAddEmpFormModal] = useState(false);
   const [select, setSelect] = useState("ID");
   const [search, setSearch] = useState("");
   const empList = useSelector((state) => state.empList);
+  const selectedDept = useSelector((state) => state.selectedDept);
   const dispatch = useDispatch();
-  const { department } = props;
-  const deptEmpList = empList.filter((list) => list.deptId === department.id);
+  const deptEmpList = empList.filter((list) => list.deptId === selectedDept.id);
   const location = useLocation();
   const history = useHistory();
 
@@ -78,9 +78,9 @@ const Maindisplay = (props) => {
 
   useEffect(() => {
     setData(null);
-  }, [department]);
+  }, [selectedDept]);
 
-  const openFormPopup = () => {
+  const handleEmpAddform = () => {
     setOpenAddEmpFormModal(true);
   };
 
@@ -111,12 +111,19 @@ const Maindisplay = (props) => {
   return (
     <>
       <div>
-        <LabelValue label={"Department Id: "} value={department.id} />
-        <LabelValue label={"Department Manager: "} value={department.manager} />
+        <LabelValue label={"Department Id: "} value={selectedDept?.id} />
+        <LabelValue
+          label={"Department Manager: "}
+          value={selectedDept?.manager}
+        />
         <LabelValue label={"Number of Employees: "} value={emplyeeNo} />
         <div>
           <b>List of Employees: </b>
-          <Button color="success" variant="contained" onClick={openFormPopup}>
+          <Button
+            color="success"
+            variant="contained"
+            onClick={handleEmpAddform}
+          >
             Add Employee
           </Button>
           <br />
@@ -134,7 +141,6 @@ const Maindisplay = (props) => {
               placeholder="Enter here"
               value={search}
               onChange={(e) => {
-                debugger;
                 const value = e.target.value;
                 setSearch(value);
                 updateQueryString({ searchText: value });
@@ -201,9 +207,7 @@ const Maindisplay = (props) => {
                         <td> {emp.gender} </td>
                         <td> {emp.dob} </td>
                         <td>
-                          <button
-                            onClick={() => handleDelete(emp.empId)}
-                          >
+                          <button onClick={() => handleDelete(emp.empId)}>
                             Delete
                           </button>
                         </td>
@@ -215,7 +219,10 @@ const Maindisplay = (props) => {
           )}
         </div>
         {data?.empId && (
-          <Details selectedDeptId={data.deptId} selectedEmpId={data.empId} />
+          <Employeesdetailsdisplay
+            selectedDeptId={data.deptId}
+            selectedEmpId={data.empId}
+          />
         )}
       </div>
       <Modal open={openAddEmpFormModal} onClose={handleCloseAddEmpModal}>
@@ -223,7 +230,7 @@ const Maindisplay = (props) => {
           <Addemployeeform
             openAddEmpFormModal={openAddEmpFormModal}
             setOpenAddEmpFormModal={setOpenAddEmpFormModal}
-            depart={department}
+            depart={selectedDept}
           />
         </div>
       </Modal>
@@ -231,4 +238,4 @@ const Maindisplay = (props) => {
   );
 };
 
-export default Maindisplay;
+export default Departmentdetailsdisplay;
