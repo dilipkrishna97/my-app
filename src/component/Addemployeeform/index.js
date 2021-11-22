@@ -6,7 +6,7 @@ import themeContext from "../../context/themeContext";
 import { Button, Box, TextField } from "@mui/material";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import Addnewempdetails from "../../helper/functions/Addnewempdetails";
+import Addnewempdetails from "../../serverRequests/addnewempdetails";
 
 const Addemployeeform = ({
   openAddEmpFormModal,

@@ -1,5 +1,5 @@
 
-function Addnewempdetails(empDetails) {
+function addnewempdetails(empDetails) {
   let newEmployeeDetails = `{
     "name": "${empDetails.name}",
     "dob": "${empDetails.dob}",
@@ -25,4 +25,4 @@ function Addnewempdetails(empDetails) {
   });
 }
 
-export default Addnewempdetails;
+export default addnewempdetails;

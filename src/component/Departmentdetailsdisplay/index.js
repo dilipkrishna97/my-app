@@ -10,11 +10,12 @@ import LabelValue from "../LabelValue";
 import Dropdown from "../Dropdown";
 import { dropDownOptionList } from "../../const";
 import { Button, Modal } from "@mui/material";
-import Deleteempdetails from "../../helper/functions/Deleteempdetails";
-import getselectedemployeedetailsPromise from "../../helper/functions/getselectedemployeedetailsPromise";
+import Deleteempdetails from "../../serverRequests/deleteempdetails";
+import getselectedemployeedetailsPromise from "../../serverRequests/getselectedemployeedetailsPromise";
 
 const Departmentdetailsdisplay = () => {
   const [data, setData] = useState(null);
+  const [detelete, setDelete ] = useState(false);
   const [employeeListS, setEmployeeList] = useState([]);
   const [openAddEmpFormModal, setOpenAddEmpFormModal] = useState(false);
   const [select, setSelect] = useState("ID");
@@ -35,6 +36,7 @@ const Departmentdetailsdisplay = () => {
       const responseJson = await response.json();
       const data = responseJson.data;
       callback(data);
+      setDelete(true);
     },
     [openAddEmpFormModal, selectedDept, handleDelete]
   );

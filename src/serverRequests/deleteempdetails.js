@@ -1,6 +1,6 @@
-import { serverBaseURL, endpoints } from "../../const";
+import { serverBaseURL, endpoints } from "../const";
 
-function Deleteempdetails(empId) {
+function deleteempdetails(empId, setDelete) {
   const baseURLString = serverBaseURL;
   const deleteEmpendpoint = endpoints.deleteEmployee(empId);
 
@@ -11,6 +11,9 @@ function Deleteempdetails(empId) {
     headers: {},
   })
     .then((response) => {
+      if(response.ok){
+        return setDelete(false);
+      }
       console.log(response);
     })
     .catch((err) => {
@@ -18,4 +21,4 @@ function Deleteempdetails(empId) {
     });
 }
 
-export default Deleteempdetails;
+export default deleteempdetails;

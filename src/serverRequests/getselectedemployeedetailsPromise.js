@@ -1,4 +1,4 @@
-import { serverBaseURL, endpoints } from "../../const";
+import { serverBaseURL, endpoints } from "../const";
 
 const getselectedemployeedetailsPromise = (deptId) => {
   const baseURLString = serverBaseURL;
