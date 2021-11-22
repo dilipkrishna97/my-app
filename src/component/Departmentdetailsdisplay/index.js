@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Employeesdetailsdisplay from "../Employeesdetailsdisplay";
 import "./style.css";
 import Addemployeeform from "../Addemployeeform";
@@ -10,18 +10,44 @@ import LabelValue from "../LabelValue";
 import Dropdown from "../Dropdown";
 import { dropDownOptionList } from "../../const";
 import { Button, Modal } from "@mui/material";
+import Deleteempdetails from "../../helper/functions/Deleteempdetails";
+import getselectedemployeedetailsPromise from "../../helper/functions/getselectedemployeedetailsPromise";
 
 const Departmentdetailsdisplay = () => {
   const [data, setData] = useState(null);
+  const [employeeListS, setEmployeeList] = useState([]);
   const [openAddEmpFormModal, setOpenAddEmpFormModal] = useState(false);
   const [select, setSelect] = useState("ID");
   const [search, setSearch] = useState("");
-  const empList = useSelector((state) => state.empList);
   const selectedDept = useSelector((state) => state.selectedDept);
   const dispatch = useDispatch();
-  const deptEmpList = empList.filter((list) => list.deptId === selectedDept.id);
   const location = useLocation();
   const history = useHistory();
+
+  const handleDelete = (empId) => {
+    dispatch(deleteEmployee(empId));
+    Deleteempdetails(empId);
+  };
+
+  const getEmployees = useCallback(
+    async (callback) => {
+      const response = await getselectedemployeedetailsPromise(selectedDept.id);
+      const responseJson = await response.json();
+      const data = responseJson.data;
+      callback(data);
+    },
+    [openAddEmpFormModal, selectedDept, handleDelete]
+  );
+
+  useEffect(() => {
+    updateFilterUsingQueryString();
+  }, []);
+
+  useEffect(() => {
+    getEmployees((employeeList) => {
+      setEmployeeList(employeeList);
+    });
+  }, [getEmployees]);
 
   const handleCloseAddEmpModal = () => {
     setOpenAddEmpFormModal(!openAddEmpFormModal);
@@ -68,10 +94,6 @@ const Departmentdetailsdisplay = () => {
   };
 
   useEffect(() => {
-    updateFilterUsingQueryString();
-  }, []);
-
-  useEffect(() => {
     // triggered when department is changing
     updateFilterUsingQueryString();
   }, [locationQueryParam]);
@@ -82,10 +104,6 @@ const Departmentdetailsdisplay = () => {
 
   const handleEmpAddform = () => {
     setOpenAddEmpFormModal(true);
-  };
-
-  const handleDelete = (empId) => {
-    dispatch(deleteEmployee(empId));
   };
 
   const handleSelect = (onSelectChnages) => {
@@ -106,7 +124,7 @@ const Departmentdetailsdisplay = () => {
     updateQueryString({ selectedColumnName: columnName, searchText: "" });
   };
 
-  const emplyeeNo = Object.keys(deptEmpList).length;
+  const emplyeeNo = Object.keys(employeeListS).length;
 
   return (
     <>
@@ -149,7 +167,7 @@ const Departmentdetailsdisplay = () => {
           </form>
         </div>
         <div>
-          {deptEmpList && (
+          {employeeListS && (
             <table id="table">
               <thead>
                 <tr>
@@ -162,7 +180,7 @@ const Departmentdetailsdisplay = () => {
                 </tr>
               </thead>
               <tbody>
-                {deptEmpList
+                {employeeListS
                   .filter((emp) => {
                     if (search === "") {
                       return emp;

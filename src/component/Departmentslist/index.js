@@ -8,7 +8,7 @@ import { departClicked } from "../../redux/action";
 import { useDispatch } from "react-redux";
 
 const Departmentlist = () => {
-  const [selectedDept, setSelectedDept] = useState(null);
+  const [selectedDept, setSelectedDept] = useState(null); 
   const theme = useContext(themeContext);
   const history = useHistory();
   const location = useLocation();

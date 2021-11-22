@@ -6,6 +6,7 @@ import themeContext from "../../context/themeContext";
 import { Button, Box, TextField } from "@mui/material";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import Addnewempdetails from "../../helper/functions/Addnewempdetails";
 
 const Addemployeeform = ({
   openAddEmpFormModal,
@@ -20,13 +21,6 @@ const Addemployeeform = ({
   const theme = useContext(themeContext);
 
   const dispatch = useDispatch();
-
-  const generateUniqueId = require("generate-unique-id");
-
-  const empId = generateUniqueId({
-    length: 5,
-    useLetters: false,
-  });
 
   const deptId = depart.id;
 
@@ -68,12 +62,13 @@ const Addemployeeform = ({
     const empData = {
       name,
       dob,
-      empId,
       deptId,
       deptName,
       gender,
       empRole,
     };
+
+    Addnewempdetails(empData);
 
     dispatch(addEmployees(empData));
 
@@ -110,16 +105,6 @@ const Addemployeeform = ({
             fullWidth
           />
         </MuiPickersUtilsProvider>
-
-        <TextField
-          style={inputStyle}
-          id="empId"
-          label="Employee Id"
-          variant="standard"
-          placeholder="Enter employee id"
-          value={empId}
-          fullWidth
-        />
 
         <TextField
           style={inputStyle}

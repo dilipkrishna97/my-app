@@ -24,19 +24,19 @@ export const departments = [
     noOfEmployees: "4",
   },
   {
-    name: "FMCG Department",
+    name: "Marketing Department",
     id: "555",
     manager: "Peter",
     noOfEmployees: "4",
   },
   {
-    name: "Securtity Department",
+    name: "Finance Department",
     id: "666",
     manager: "Jenny",
     noOfEmployees: "4",
   },
   {
-    name: " Maintenance Department",
+    name: " Sales Department",
     id: "777",
     manager: "Samuel",
     noOfEmployees: "4",
@@ -45,18 +45,35 @@ export const departments = [
 
 export const dropDownOptionList = [
   {
-    option : "ID",
+    option: "ID",
   },
   {
-    option : "Name",
+    option: "Name",
   },
   {
-    option : "Role",
+    option: "Role",
   },
   {
-    option : "Gender",
+    option: "Gender",
   },
   {
-    option : "DOB",
-  }
+    option: "DOB",
+  },
 ];
+
+export const serverBaseURL = "http://localhost:8080";
+
+export const endpoints = {
+  employees: () => {
+    return "employee";
+  },
+  getDepartmentEmployee: (deprtmentId) => {
+    return `employee/department/${deprtmentId}`;
+  },
+  getDepartment: () => {
+    return `department`;
+  },
+  deleteEmployee: (empId) => {
+    return `employee?empId=${empId}`
+  }
+};
