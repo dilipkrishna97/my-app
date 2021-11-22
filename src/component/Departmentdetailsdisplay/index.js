@@ -15,7 +15,7 @@ import getselectedemployeedetailsPromise from "../../serverRequests/getselectede
 
 const Departmentdetailsdisplay = () => {
   const [data, setData] = useState(null);
-  const [detelete, setDelete ] = useState(false);
+  const [deleteEmp , setDeleteEmp ] = useState(false);
   const [employeeListS, setEmployeeList] = useState([]);
   const [openAddEmpFormModal, setOpenAddEmpFormModal] = useState(false);
   const [select, setSelect] = useState("ID");
@@ -26,19 +26,22 @@ const Departmentdetailsdisplay = () => {
   const history = useHistory();
 
   const handleDelete = (empId) => {
+    setDeleteEmp(true);
     dispatch(deleteEmployee(empId));
-    Deleteempdetails(empId);
+    Deleteempdetails(empId, setDeleteEmp);
   };
 
   const getEmployees = useCallback(
     async (callback) => {
+      debugger
       const response = await getselectedemployeedetailsPromise(selectedDept.id);
+      debugger
       const responseJson = await response.json();
+      debugger
       const data = responseJson.data;
       callback(data);
-      setDelete(true);
     },
-    [openAddEmpFormModal, selectedDept, handleDelete]
+    [openAddEmpFormModal, selectedDept, deleteEmp]
   );
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const Departmentdetailsdisplay = () => {
 
   useEffect(() => {
     getEmployees((employeeList) => {
-      setEmployeeList(employeeList);
+    const response = setEmployeeList(employeeList);
     });
   }, [getEmployees]);
 

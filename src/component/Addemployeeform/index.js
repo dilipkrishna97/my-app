@@ -68,11 +68,15 @@ const Addemployeeform = ({
       empRole,
     };
 
-    Addnewempdetails(empData);
+    debugger;
 
-    dispatch(addEmployees(empData));
-
-    setOpenAddEmpFormModal(!openAddEmpFormModal);
+    Addnewempdetails(empData, (err, response) => {
+      if (!err) {
+        dispatch(addEmployees(empData));
+        debugger
+        setOpenAddEmpFormModal(!openAddEmpFormModal);
+      }
+    });
   };
 
   const buttonStyle = {

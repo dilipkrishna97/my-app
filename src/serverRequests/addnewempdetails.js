@@ -1,5 +1,5 @@
 
-function addnewempdetails(empDetails) {
+function addnewempdetails(empDetails,callback) {
   let newEmployeeDetails = `{
     "name": "${empDetails.name}",
     "dob": "${empDetails.dob}",
@@ -19,9 +19,11 @@ function addnewempdetails(empDetails) {
   })
   .then(response => {
     console.log(response);
+    callback(undefined,response)
   })
   .catch(err => {
     console.error(err);
+    callback(err,undefined)
   });
 }
 
