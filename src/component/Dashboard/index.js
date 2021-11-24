@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import _  from "lodash"
 import Header from "../Header";
-import DepartmentList from "../Departmentslist";
+import DepartmentsList from "../DepartmentsList"
 import "./style.css";
 import themeContext from "../../context/themeContext";
 import { useSelector } from "react-redux";
-import Departmentdetailsdisplay from "../Departmentdetailsdisplay";
-import Welcomepage from "../Welcomepage";
+import DeptDetailsDisplay from "../DeptDetailsDisplay";
+import WelcomePage from "../WelcomePage";
 
-const Dashboard = () => {
+const DashBoard = () => {
   const [theme, setTheme] = useState(true);
   const selectedDept = useSelector((state) => state.selectedDept);
 
@@ -27,14 +27,14 @@ const Dashboard = () => {
         <button onClick={() => handleLightTheme()}> Light </button>
         <Header />
         <div id="appss">
-          <DepartmentList />
+          <DepartmentsList />
           {!_.isEmpty(selectedDept) ? (
             <div
               className={
                 theme ? "display dark-display" : "display light-display"
               }
             >
-              <Departmentdetailsdisplay />
+              <DeptDetailsDisplay />
             </div>
           ) : (
             <div
@@ -42,7 +42,7 @@ const Dashboard = () => {
                 theme ? "display2 dark-display2" : "display2 light-display2"
               }
             >
-              <Welcomepage />
+              <WelcomePage />
             </div>
           )}
         </div>
@@ -51,4 +51,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashBoard;

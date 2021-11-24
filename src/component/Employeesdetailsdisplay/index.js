@@ -1,13 +1,10 @@
 import "./style.css";
-import { useSelector } from "react-redux";
 import LabelValue from "../LabelValue";
 
-const Employeesdetailsdisplay = (props) => {
-  const { selectedDeptId, selectedEmpId } = props;
+const EmployeesDetailsDisplay = (props) => {
+  const { selectedDeptId, selectedEmpId, employeeData } = props;
 
-  const empList = useSelector((state) => state.empList);
-
-  const selectedEmployee = empList.filter(
+  const selectedEmployee = employeeData.filter(
     (emp) => emp.empId === selectedEmpId && emp.deptId === selectedDeptId
   );
 
@@ -44,14 +41,14 @@ const Employeesdetailsdisplay = (props) => {
     const employeeDob = ageCalculate(emp.dob);
     return (
       <div>
-        <LabelValue label={"Name: "} value={emp.name}/>
-        <LabelValue label={"Role: "} value={emp.empRole}/>
-        <LabelValue label={"Employee Id: "} value={emp.empId}/>
-        <LabelValue label={"Gender: "} value={emp.gender}/>
-        <LabelValue label={"Age: "} value={employeeDob}/>
+        <LabelValue label={"Name: "} value={emp.name} />
+        <LabelValue label={"Role: "} value={emp.empRole} />
+        <LabelValue label={"Employee Id: "} value={emp.empId} />
+        <LabelValue label={"Gender: "} value={emp.gender} />
+        <LabelValue label={"Age: "} value={employeeDob} />
       </div>
     );
   });
 };
 
-export default Employeesdetailsdisplay;
+export default EmployeesDetailsDisplay;

@@ -2,8 +2,8 @@ import "./App.css";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import Login from "./component/Login";
-import Dashboard from "./component/Dashboard";
-import Signupform from "./component/Signupform";
+import DashBoard from "./component/DashBoard";
+import SignUpForm from "./component/SignUpForm" 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 const App = () => {
@@ -12,8 +12,8 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" children ={() => < Login/>} />
-          <Route exact path="/home" children ={() => < Dashboard/>} />
-          <Route exact path="/signUp" children ={() => < Signupform/>} />
+          <Route exact path="/home" children ={() => < DashBoard/>} />
+          <Route exact path="/signUp" children ={() => < SignUpForm/>} />
           <Route path="*">
            <h1>404 page not found</h1>
           </Route>

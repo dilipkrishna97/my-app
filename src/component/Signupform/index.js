@@ -22,7 +22,7 @@ import {
 import { useDispatch } from "react-redux";
 import { addUser } from "../../redux/action";
 
-const Signupform = () => {
+const SignUpForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -174,4 +174,4 @@ const Signupform = () => {
   );
 };
 
-export default Signupform;
+export default SignUpForm;

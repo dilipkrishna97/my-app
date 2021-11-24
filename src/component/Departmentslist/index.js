@@ -7,7 +7,7 @@ import convertQueryStringToObject from "../../helper/functions/convertQueryStrin
 import { departClicked } from "../../redux/action";
 import { useDispatch } from "react-redux";
 
-const Departmentlist = () => {
+const DepartmentsList = () => {
   const [selectedDept, setSelectedDept] = useState(null); 
   const theme = useContext(themeContext);
   const history = useHistory();
@@ -79,4 +79,4 @@ const Departmentlist = () => {
   );
 };
 
-export default Departmentlist;
+export default DepartmentsList;

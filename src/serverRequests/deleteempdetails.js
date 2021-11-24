@@ -1,24 +1,25 @@
 import { serverBaseURL, endpoints } from "../const";
+import axios from "axios";
 
-function deleteempdetails(empId, setDelete) {
+function deleteEmpDetails(empId, callback) {
   const baseURLString = serverBaseURL;
   const deleteEmpendpoint = endpoints.deleteEmployee(empId);
 
   const baseURL = new URL(baseURLString);
   const finalURL = new URL(deleteEmpendpoint, baseURL);
-  fetch(finalURL.toString(), {
-    method: "DELETE",
-    headers: {},
-  })
+
+  axios
+    .delete(finalURL.toString())
     .then((response) => {
-      console.log(response);
-      if(response.status == 200){
-        setDelete(false);
-      }
+      setTimeout(() => {
+        callback(undefined, response);
+      }, 100);
+      
     })
     .catch((err) => {
+      callback(err, undefined);
       console.error(err);
     });
 }
 
-export default deleteempdetails;
+export default deleteEmpDetails;

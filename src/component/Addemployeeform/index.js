@@ -6,9 +6,9 @@ import themeContext from "../../context/themeContext";
 import { Button, Box, TextField } from "@mui/material";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import Addnewempdetails from "../../serverRequests/addnewempdetails";
+import addNewEmpDetails from "../../serverRequests/addNewEmpdetails"
 
-const Addemployeeform = ({
+const AddEmployeeForm = ({
   openAddEmpFormModal,
   setOpenAddEmpFormModal,
   depart,
@@ -68,12 +68,9 @@ const Addemployeeform = ({
       empRole,
     };
 
-    debugger;
-
-    Addnewempdetails(empData, (err, response) => {
+    addNewEmpDetails(empData, (err, response) => {
       if (!err) {
         dispatch(addEmployees(empData));
-        debugger
         setOpenAddEmpFormModal(!openAddEmpFormModal);
       }
     });
@@ -164,4 +161,4 @@ const Addemployeeform = ({
   );
 };
 
-export default Addemployeeform;
+export default AddEmployeeForm;

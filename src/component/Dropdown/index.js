@@ -1,4 +1,4 @@
-const Dropdown = ({ value, onSelectChanges, list }) => {
+const DropDown = ({ value, onSelectChanges, list }) => {
   return (
     <select className="dropDown" value={value} onChange={onSelectChanges}>
       {list.map((item) => (
@@ -8,4 +8,4 @@ const Dropdown = ({ value, onSelectChanges, list }) => {
   );
 };
 
-export default Dropdown;
+export default DropDown;

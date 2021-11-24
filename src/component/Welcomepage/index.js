@@ -1,6 +1,6 @@
 import "./style.css";
 
-const Welcomepage = () => {
+const WelcomePage = () => {
   return (
     <div>
       <h2>WELCOME SOFT SUAVE TECHNOLOGIES PVT LTD. </h2>
@@ -8,4 +8,4 @@ const Welcomepage = () => {
   );
 };
 
-export default Welcomepage;
+export default WelcomePage;
